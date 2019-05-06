@@ -1,11 +1,14 @@
 <template>
   <div class="hello">
+    <PersonalMenu active="Projects"></PersonalMenu>
     Projects page
   </div>
 </template>
 
 <script>
+import PersonalMenu from '../common/PersonalMenu'
 export default {
+  components: {PersonalMenu},
   name: 'projects',
   data () {
     return {

@@ -1,26 +1,26 @@
 <template>
-  <Menu mode="horizontal" theme="primary" active-name="1" @on-select="navigateTo">
+  <Menu mode="horizontal" theme="light" :active-name=active @on-select="navigateTo">
       <div class="logo">
           <Avatar icon="ios-person" size="large" />
           Su Yunpeng
       </div>
-      <MenuItem name="Home">
+      <MenuItem name="Home" to=Home>
         <Icon type="ios-home" />
         Home
       </MenuItem>
-      <MenuItem name="Projects">
+      <MenuItem name="Projects" to=Projects>
         <Icon type="ios-code" />
         Projects
       </MenuItem>
-      <MenuItem name="Eduction">
+      <MenuItem name="Eduction" to=Eduction>
         <Icon type="ios-school" />
         Eduction
       </MenuItem>
       <div class="rightItem">
-        <MenuItem name="Github">
-          <Icon type="logo-github" />
+        <MenuItem name="1">
+          <Icon type="logo-github" size="24"/>
         </MenuItem>
-        <MenuItem name="blog">
+        <MenuItem name="2">
           blog
         </MenuItem>
       </div>
@@ -29,6 +29,7 @@
 
 <script>
 export default {
+  props: ['active'],
   name: 'PersonalMenu',
   data () {
     return {
@@ -37,7 +38,14 @@ export default {
   },
   methods: {
     navigateTo (name) {
-      this.$router.push(name)
+      switch (name) {
+        case '1':
+          window.open('https://github.com/lyfxxxx')
+          break
+        case '2':
+          window.open('https://mp.csdn.net/')
+          break
+      }
     }
   }
 }
@@ -46,9 +54,13 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 .logo {
-    width: 100px;
+    width: 200px;
     background: white;
     position: relative;
     float: left;
+}
+.rightItem {
+  float: right;
+  position: relative;
 }
 </style>
