@@ -12,9 +12,9 @@
         <Icon type="ios-code" />
         Projects
       </MenuItem>
-      <MenuItem name="Eduction" to=Eduction>
+      <MenuItem name="Education" to=Education>
         <Icon type="ios-school" />
-        Eduction
+        Education
       </MenuItem>
       <div class="rightItem">
         <MenuItem name="1">

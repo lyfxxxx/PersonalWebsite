@@ -1,7 +1,7 @@
 <template>
   <div class="hello">
-    <PersonalMenu active="Eduction"></PersonalMenu>
-    Eduction page
+    <PersonalMenu active="Education"></PersonalMenu>
+    Education page
   </div>
 </template>
 
@@ -9,7 +9,7 @@
 import PersonalMenu from '../common/PersonalMenu'
 export default {
   components: {PersonalMenu},
-  name: 'eduction',
+  name: 'education',
   data () {
     return {
       msg: 'Welcome to Your Vue.js App'
