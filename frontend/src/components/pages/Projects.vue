@@ -1,18 +1,45 @@
 <template>
   <div class="hello">
     <PersonalMenu active="Projects"></PersonalMenu>
-    Projects page
+    <div class="main-container">
+      <div class="projects-card">
+        <h1>Projects</h1>
+        <div class ="project" v-for="item in projects" :key="item">
+          <h2>
+            {{item.priName}}
+            <span id="time">{{item.time}}</span>
+          </h2>
+          <p>Position:{{item.pos}}</p>
+          <p id="desc">Description: {{item.intro}}</p>
+        </div>
+      </div>
+      <MyFooter></MyFooter>
+    </div>
   </div>
 </template>
 
 <script>
 import PersonalMenu from '../common/PersonalMenu'
+import MyFooter from '../common/footer'
 export default {
-  components: {PersonalMenu},
+  components: {PersonalMenu, MyFooter},
   name: 'projects',
   data () {
     return {
-      msg: 'Welcome to Your Vue.js App'
+      projects: [
+        {
+          priName: 'first project',
+          pos: 'backend developer',
+          intro: 'this is a demo project.',
+          time: '2018/06-2018/07'
+        },
+        {
+          priName: 'second project',
+          pos: 'backend developer',
+          intro: 'this is a demo project.',
+          time: '2018/06-2018/07'
+        }
+      ]
     }
   }
 }
@@ -20,18 +47,58 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-h1, h2 {
-  font-weight: normal;
+.main-container {
+  margin: 20px;
+  width: 100%;
 }
-ul {
-  list-style-type: none;
-  padding: 0;
+
+.projects-card {
+  margin: 0 auto;
+  position: relative;
+  width: 80%;
+  max-width: 100%;
+  display: flex;
+  flex-direction: column;
+  border-radius: 5px;
+  border: 1px solid rgba(34,36,38,.15);
+  box-shadow: 0 1px 2px 0;
+  background: #fff;
 }
-li {
-  display: inline-block;
-  margin: 0 10px;
+
+.projects-card > h1 {
+  margin: 10px;
+  text-align: left;
 }
-a {
-  color: #42b983;
+
+.project {
+  line-height: 35px;
+  flex-grow: 1;
+  border: none;
+  border-top: 1px solid;
+}
+.project > h2 {
+  text-align: left;
+  margin: 10px;
+  font-size: 16px;
+}
+
+#time {
+  text-align: right;
+  margin: 10px;
+  font-size: 14px;
+}
+
+.project > p {
+  text-align: left;
+  margin: 10px;
+  color: #657180;
+}
+
+#time {
+  text-align: right;
+}
+
+#desc {
+  font-size: 16px;
 }
 </style>
