@@ -1,18 +1,45 @@
 <template>
   <div class="hello">
     <PersonalMenu active="Education"></PersonalMenu>
-    Education page
+    <div class="main-container">
+      <div class="educations-card">
+        <h1>Educations</h1>
+        <div class ="education" v-for="item in educations" :key="item">
+          <h2>
+            {{item.stage}}
+            <span id="time">{{item.time}}</span>
+          </h2>
+          <p>专业:{{item.major}}</p>
+          <p>学校名称: {{item.schoolname}}</p>
+        </div>
+      </div>
+      <MyFooter></MyFooter>
+    </div>
   </div>
 </template>
 
 <script>
 import PersonalMenu from '../common/PersonalMenu'
+import MyFooter from '../common/footer'
 export default {
-  components: {PersonalMenu},
+  components: {PersonalMenu, MyFooter},
   name: 'education',
   data () {
     return {
-      msg: 'Welcome to Your Vue.js App'
+      educations: [
+        {
+          stage: '大学本科',
+          major: '软件工程',
+          schoolname: '合肥工业大学',
+          time: '2016/09-2020/06'
+        },
+        {
+          stage: '高中',
+          major: '无主修',
+          schoolname: '周南中学',
+          time: '2013/09-2016/06'
+        }
+      ]
     }
   }
 }
@@ -20,18 +47,56 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-h1, h2 {
-  font-weight: normal;
+.main-container {
+  margin: 20px;
+  width: 100%;
 }
-ul {
-  list-style-type: none;
-  padding: 0;
+
+.educations-card {
+  margin: 0 auto;
+  position: relative;
+  width: 80%;
+  max-width: 100%;
+  display: flex;
+  flex-direction: column;
+  border-radius: 5px;
+  border: 1px solid rgba(34,36,38,.15);
+  box-shadow: 0 1px 2px 0;
+  background: #fff;
 }
-li {
-  display: inline-block;
-  margin: 0 10px;
+
+.educations-card > h1 {
+  margin: 10px;
+  text-align: left;
 }
-a {
-  color: #42b983;
+
+.education {
+  line-height: 35px;
+  flex-grow: 1;
+  border: none;
+  border-top: 1px solid;
 }
+.education > h2 {
+  text-align: left;
+  margin: 10px;
+  font-size: 16px;
+}
+
+#time {
+  text-align: right;
+  margin: 10px;
+  font-size: 14px;
+}
+
+.education > p {
+  font-size: 16px;
+  text-align: left;
+  margin: 10px;
+  color: #657180;
+}
+
+#time {
+  text-align: right;
+}
+
 </style>

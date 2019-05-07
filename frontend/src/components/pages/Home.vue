@@ -26,15 +26,16 @@
         <img src="../../assets/vue.png">
         <img src="../../assets/starcraft.png">
       </div>
+      <MyFooter></MyFooter>
     </div>
-    Home page
   </div>
 </template>
 
 <script>
 import PersonalMenu from '../common/PersonalMenu'
+import MyFooter from '../common/footer'
 export default {
-  components: {PersonalMenu},
+  components: {PersonalMenu, MyFooter},
   name: 'home',
   mounted () {
     this.$axios
@@ -58,12 +59,21 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-.main-container {
+.hello {
   width: 100%;
+}
+
+.main-container {
+  position: relative;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 100%;
+  width: 80%;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
 }
+
 .left {
   width: 25%!important;
 }
@@ -77,7 +87,7 @@ export default {
   line-height: 35px;
   background: #fff;
   box-shadow: 0 1px 2px 0;
-  margin: 20px;
+  margin: 20px 0px 20px 20px;
   border: 1px solid rgba(34,36,38,.15);
   border-radius: 5px;
   position: relative;
@@ -93,11 +103,6 @@ export default {
 h1 {
   margin: 10px;
 }
-.hello {
-  max-width: 100%!important;
-  width: 100%;
-  background: #F0F0F0;
-}
 
 .img-card {
   box-shadow: 0 1px 2px 0;
@@ -110,7 +115,10 @@ h1 {
   position: relative;
   flex-direction: column;
 }
+
 .img {
+  max-width: 100%;
+  width: 100%;
   position: relative;
   display: block;
   flex: 0 0 auto;
@@ -141,7 +149,7 @@ h1 {
   text-align: left;
   background: #fff;
   box-shadow: 0 1px 2px 0;
-  margin: 20px;
+  margin: 20px 0px 20px 20px;
   border: 1px solid rgba(34,36,38,.15);
   border-radius: 5px;
   position: relative;
