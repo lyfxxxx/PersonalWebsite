@@ -16,9 +16,7 @@
       <div class="right">
         <div class="intro">
           <h1>About me</h1>
-          <p>Youth is not a time of life; it is a state of mind. It is not a matter of rosy cheeks, red lips and supple knees. It is a matter of the will, a quality of the imagination, vigor of the emotions; it is the freshness of the deep spring of life.</p>
-          <p>Youth means a temperamental predominance of courage over timidity, of the appetite for adventure over the love of ease. This often exits in a man of 60, more than a boy of 20.nobody grows merely by the number of years; we grow old by deserting our ideas. Years may wrinkle the skin, but to give up enthusiasm wrinkles the soul. Worry, fear, self-distrust1 bows the heart and turns the spirit back to dust.</p>
-          <p>Whether 60 or 16, there is in every human being’s heart the lure of wonders, the unfailing childlike appetite of what’s next and the joy of the game of living. In the center of your heart and my heart there is a wireless station; so long as it receives messages of beauty, hope, cheer, courage and power from men and from infinite, so long as you are young.</p>
+          <p v-for='item in desc' :key="item">{{item.intro}}</p>
         </div>
       </div>
       <div class="favorites">
@@ -38,9 +36,21 @@ import PersonalMenu from '../common/PersonalMenu'
 export default {
   components: {PersonalMenu},
   name: 'home',
+  mounted () {
+    this.$axios
+      .get('/index', {})
+      .then(res => {
+        console.log(res)
+        if (res.data.code === 200) {
+          this.desc = res.data.data
+        } else {
+          this.$Message.error('内部错误!')
+        }
+      })
+  },
   data () {
     return {
-      msg: 'Welcome to Your Vue.js App'
+      desc: []
     }
   }
 }
