@@ -9,6 +9,7 @@ export default {
   name: 'MyFooter',
   data () {
     return {
+      msg: 'This my footer!'
     }
   }
 }
