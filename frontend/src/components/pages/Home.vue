@@ -1,6 +1,34 @@
 <template>
   <div class="hello">
     <PersonalMenu active="Home"></PersonalMenu>
+    <div class="main-container">
+      <div class="left">
+        <div class="img-card">
+          <div class="img">
+            <img src="../../assets/logo.png">
+          </div>
+          <div class="content">
+            <a>Su Yunpeng</a>
+            <div class="words">A Hefei University of Technology student.</div>
+          </div>
+        </div>
+      </div>
+      <div class="right">
+        <div class="intro">
+          <h1>About me</h1>
+          <p>Youth is not a time of life; it is a state of mind. It is not a matter of rosy cheeks, red lips and supple knees. It is a matter of the will, a quality of the imagination, vigor of the emotions; it is the freshness of the deep spring of life.</p>
+          <p>Youth means a temperamental predominance of courage over timidity, of the appetite for adventure over the love of ease. This often exits in a man of 60, more than a boy of 20.nobody grows merely by the number of years; we grow old by deserting our ideas. Years may wrinkle the skin, but to give up enthusiasm wrinkles the soul. Worry, fear, self-distrust1 bows the heart and turns the spirit back to dust.</p>
+          <p>Whether 60 or 16, there is in every human being’s heart the lure of wonders, the unfailing childlike appetite of what’s next and the joy of the game of living. In the center of your heart and my heart there is a wireless station; so long as it receives messages of beauty, hope, cheer, courage and power from men and from infinite, so long as you are young.</p>
+        </div>
+      </div>
+      <div class="favorites">
+        <h1>Favorites</h1>
+        <img src="../../assets/django.png">
+        <img src="../../assets/spring.jpeg">
+        <img src="../../assets/vue.png">
+        <img src="../../assets/starcraft.png">
+      </div>
+    </div>
     Home page
   </div>
 </template>
@@ -20,18 +48,97 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-h1, h2 {
-  font-weight: normal;
+.main-container {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
 }
-ul {
-  list-style-type: none;
+.left {
+  width: 25%!important;
+}
+
+.right {
+  width: 75%!important;
+}
+
+.intro {
+  text-align: left;
+  line-height: 35px;
+  background: #fff;
+  box-shadow: 0 1px 2px 0;
+  margin: 20px;
+  border: 1px solid rgba(34,36,38,.15);
+  border-radius: 5px;
+  position: relative;
+  flex-direction: column;
+}
+
+.intro > p {
+  margin: 10px;
+  font-size: 14px;
+  color: #657180;
+}
+
+h1 {
+  margin: 10px;
+}
+.hello {
+  max-width: 100%!important;
+  width: 100%;
+  background: #F0F0F0;
+}
+
+.img-card {
+  box-shadow: 0 1px 2px 0;
+  max-width: 100%;
+  width: 290px;
+  margin: 20px;
+  border: 1px solid rgba(34,36,38,.15);
+  border-radius: 5px;
+  display: flex;
+  position: relative;
+  flex-direction: column;
+}
+.img {
+  position: relative;
+  display: block;
+  flex: 0 0 auto;
   padding: 0;
+  margin: 0;
 }
-li {
-  display: inline-block;
-  margin: 0 10px;
+.content {
+  flex-grow: 1;
+  border: none;
+  border-top: 1px solid;
+  background: white;
+  margin: 0;
 }
-a {
-  color: #42b983;
+
+.content > a {
+  font-size: 16px;
+  color: #464c5b;
+  font-weight: bold;
+}
+
+.words {
+  font-size: 12px;
+  color: #657180;
+}
+
+.favorites {
+  width: 100%;
+  text-align: left;
+  background: #fff;
+  box-shadow: 0 1px 2px 0;
+  margin: 20px;
+  border: 1px solid rgba(34,36,38,.15);
+  border-radius: 5px;
+  position: relative;
+}
+
+.favorites > img {
+  margin: 20px;
+  height: 100px;
 }
 </style>
