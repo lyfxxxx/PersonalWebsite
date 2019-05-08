@@ -9,8 +9,8 @@
             {{item.stage}}
             <span id="time">{{item.time}}</span>
           </h2>
-          <p>专业:{{item.major}}</p>
-          <p>学校名称: {{item.schoolname}}</p>
+          <p>专业：{{item.major}}</p>
+          <p>学校名称: {{item.school}}</p>
         </div>
       </div>
       <MyFooter></MyFooter>
@@ -24,22 +24,21 @@ import MyFooter from '../common/footer'
 export default {
   components: {PersonalMenu, MyFooter},
   name: 'education',
+  mounted () {
+    this.$axios
+      .get('/educations', {})
+      .then(res => {
+        console.log(res)
+        if (res.data.code === 200) {
+          this.educations = res.data.data
+        } else {
+          this.$Message.error('内部错误！')
+        }
+      })
+  },
   data () {
     return {
-      educations: [
-        {
-          stage: '大学本科',
-          major: '软件工程',
-          schoolname: '合肥工业大学',
-          time: '2016/09-2020/06'
-        },
-        {
-          stage: '高中',
-          major: '无主修',
-          schoolname: '周南中学',
-          time: '2013/09-2016/06'
-        }
-      ]
+      educations: []
     }
   }
 }
