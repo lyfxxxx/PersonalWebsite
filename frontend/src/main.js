@@ -7,7 +7,7 @@ import iView from 'iview'
 import 'iview/dist/styles/iview.css'
 import axios from 'axios'
 
-axios.defaults.baseURL = 'http://localhost:8080/api'
+axios.defaults.baseURL = 'http://localhost:8500/api'
 Vue.use(iView)
 Vue.config.productionTip = false
 Vue.prototype.$axios = axios

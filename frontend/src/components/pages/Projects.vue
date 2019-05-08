@@ -6,11 +6,12 @@
         <h1>Projects</h1>
         <div class ="project" v-for="item in projects" :key="item">
           <h2>
-            {{item.priName}}
+            {{item.prjname}}
             <span id="time">{{item.time}}</span>
           </h2>
-          <p>Position:{{item.pos}}</p>
-          <p id="desc">Description: {{item.intro}}</p>
+          <p>项目职位：{{item.pos}}</p>
+          <p id="desc">项目简介: {{item.intro}}</p>
+          <p>项目职责：{{item.duty}}</p>
         </div>
       </div>
       <MyFooter></MyFooter>
@@ -24,22 +25,21 @@ import MyFooter from '../common/footer'
 export default {
   components: {PersonalMenu, MyFooter},
   name: 'projects',
+  mounted () {
+    this.$axios
+      .get('/projects', {})
+      .then(res => {
+        console.log(res)
+        if (res.data.code === 200) {
+          this.projects = res.data.data
+        } else {
+          this.$Message.error('内部错误！')
+        }
+      })
+  },
   data () {
     return {
-      projects: [
-        {
-          priName: 'first project',
-          pos: 'backend developer',
-          intro: 'this is a demo project.',
-          time: '2018/06-2018/07'
-        },
-        {
-          priName: 'second project',
-          pos: 'backend developer',
-          intro: 'this is a demo project.',
-          time: '2018/06-2018/07'
-        }
-      ]
+      projects: []
     }
   }
 }
@@ -92,13 +92,11 @@ export default {
   text-align: left;
   margin: 10px;
   color: #657180;
+  font-size: 14px;
 }
 
 #time {
   text-align: right;
 }
 
-#desc {
-  font-size: 16px;
-}
 </style>
