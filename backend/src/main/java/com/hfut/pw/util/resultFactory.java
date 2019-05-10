@@ -10,10 +10,10 @@ public class resultFactory {
     }
 
     public static result buildRes(resultCode code, String message, Object data) {
-        return new result(code.code, "success", data);
+        return new result(code.code, message, data);
     }
 
     public static result buildRes(Integer code, String message, Object data) {
-        return new result(code, "success", data);
+        return new result(code, message, data);
     }
 }

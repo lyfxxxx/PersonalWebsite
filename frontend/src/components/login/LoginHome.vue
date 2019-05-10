@@ -3,13 +3,16 @@
     <PersonalMenu active="Home"></PersonalMenu>
     <div class="container">
       <div class="main-container">
+        <div class="welcome-part">
+          <p> 欢迎回家！ </p>
+        </div>
         <div class="left">
           <div class="img-card">
             <div class="img">
               <img src="../../assets/logo.png">
             </div>
             <div class="content">
-              <a>Su Yunpeng</a>
+              <p>Su Yunpeng</p>
               <div class="words">A Hefei University of Technology student.</div>
             </div>
           </div>
@@ -75,6 +78,14 @@ export default {
   flex-wrap: wrap;
 }
 
+.welcome-part {
+  width: 100%;
+  text-align: left;
+  font-size: 20px;
+  font-weight: bold;
+  margin-left: 20px;
+}
+
 .left {
   width: 25%;
 }
@@ -134,7 +145,7 @@ h1 {
   margin: 0;
 }
 
-.content > a {
+.content > p {
   font-size: 16px;
   color: #464c5b;
   font-weight: bold;
