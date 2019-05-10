@@ -4,8 +4,8 @@
     <div class="form">
       <p>登录</p>
       <Form ref="loginForm" :model="loginForm" :rules="loginRules">
-        <FormItem prop="username">
-          <Input type="text" v-model="loginForm.username" placeholder="输入用户名" />
+        <FormItem prop="name">
+          <Input type="text" v-model="loginForm.name" placeholder="输入用户名" />
         </FormItem>
         <FormItem prop="password">
           <Input type="text" v-model="loginForm.password" placeholder="输入密码" />
@@ -26,11 +26,11 @@ export default {
   data () {
     return {
       loginForm: {
-        username: '',
+        name: '',
         password: ''
       },
       loginRules: {
-        username: [
+        name: [
           {required: true, message: '请输入用户名！', trigger: 'blur'}
         ],
         password: [
@@ -44,13 +44,17 @@ export default {
       this.$refs[name].validate((valid) => {
         if (valid) {
           this.$axios({
-            url: '/api/login',
+            url: '/login',
             method: 'post',
             data: this.loginForm
           }).then(res => {
-            console.info('resData', res.data)
-            this.$router.replace({path: '/helloworld'})
+            if (res.data.code === 200) {
+              this.$router.replace({path: '/loginhome'})
+            } else if (res.data.code === 400) {
+              this.$Message.error('用户名不存在或密码错误！')
+            }
           }).catch(err => {
+            this.$Message.error('内部错误！')
             console.info('errMsg', err.response.message)
           })
         } else {

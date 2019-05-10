@@ -4,6 +4,7 @@ import Home from '@/components/pages/Home'
 import Education from '@/components/pages/Education'
 import Projects from '@/components/pages/Projects'
 import Login from '@/components/login/Login'
+import LoginHome from '@/components/login/LoginHome'
 
 Vue.use(Router)
 
@@ -33,6 +34,11 @@ export default new Router({
       path: '/login',
       name: 'login',
       component: Login
+    },
+    {
+      path: '/loginhome',
+      name: 'loginhome',
+      component: LoginHome
     }
   ]
 })
