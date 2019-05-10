@@ -18,9 +18,12 @@
       </MenuItem>
       <div class="rightItem">
         <MenuItem name="1">
-          <Icon type="logo-github" size="24"/>
+          我是我自己？请登录
         </MenuItem>
         <MenuItem name="2">
+          <Icon type="logo-github" size="24"/>
+        </MenuItem>
+        <MenuItem name="3">
           blog
         </MenuItem>
       </div>
@@ -40,9 +43,12 @@ export default {
     navigateTo (name) {
       switch (name) {
         case '1':
-          window.open('https://github.com/lyfxxxx')
+          this.$router.push({path: '/login'})
           break
         case '2':
+          window.open('https://github.com/lyfxxxx')
+          break
+        case '3':
           window.open('https://mp.csdn.net/')
           break
       }

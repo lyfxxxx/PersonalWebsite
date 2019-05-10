@@ -3,6 +3,7 @@ import Router from 'vue-router'
 import Home from '@/components/pages/Home'
 import Education from '@/components/pages/Education'
 import Projects from '@/components/pages/Projects'
+import Login from '@/components/login/Login'
 
 Vue.use(Router)
 
@@ -27,6 +28,11 @@ export default new Router({
       path: '/projects',
       name: 'projects',
       component: Projects
+    },
+    {
+      path: '/login',
+      name: 'login',
+      component: Login
     }
   ]
 })
