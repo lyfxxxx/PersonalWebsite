@@ -13,7 +13,7 @@ public class resultFactory {
         return new result(code.code, message, data);
     }
 
-    public static result buildRes(Integer code, String message, Object data) {
+     public static result buildRes(Integer code, String message, Object data) {
         return new result(code, message, data);
     }
 }

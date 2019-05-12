@@ -11,9 +11,23 @@
             <div class="img">
               <img src="../../assets/logo.png">
             </div>
+            <div class="upload">
+              <Upload
+                :action="upload_url"
+                :format="['jpg', 'jpeg', 'png']"
+                :show-upload-list="false"
+                :before-upload="handleBeforeUpload"
+                :on-format-error="handleFormatError">
+                <Button icon="ios-cloud-upload-outline">选择文件</Button>
+              </Upload>
+              <div v-if="file !== null">
+                选择文件名：{{file.name}}
+                <Button type="text" @click="upload" :loading="loadingStatus"></Button>
+              </div>
+            </div>
             <div class="content">
               <p>Su Yunpeng</p>
-              <div class="words">A Hefei University of Technology student.</div>
+              <div class="words">A Hefei Universi ty of Technology student.</div>
             </div>
           </div>
         </div>
@@ -56,7 +70,37 @@ export default {
   },
   data () {
     return {
-      desc: []
+      personalPhotoUrl: '',
+      desc: [],
+      file: null,
+      loadingStatus: false,
+      uploadUrl: 'http://localhost:8500/uploads'
+    }
+  },
+  methods: {
+    handleBeforeUpload (file) {
+      this.file = file
+      return false
+    },
+    upload () {
+      let formData = new FormData()
+      formData.append(this.file)
+      this.$axios.post('/upload/personalPhoto', formData,
+        {headers: {'Content-Type': 'multipart/form-data'}}
+      )
+        .then(res => {
+          if (res.data.code === 200) {
+            this.$Message.success('上传成功')
+          } else {
+            this.$Message.error('上传失败！')
+          }
+        })
+        .catch(() => {
+          this.$Message.error('服务器错误！')
+        })
+    },
+    handleFormatError (file) {
+      this.$Message.error('文件上传格式错误！')
     }
   }
 }
