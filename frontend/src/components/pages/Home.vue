@@ -6,7 +6,7 @@
         <div class="left">
           <div class="img-card">
             <div class="img">
-              <img src="../../assets/logo.png">
+              <img :src="url">
             </div>
             <div class="content">
               <a>Su Yunpeng</a>
@@ -53,6 +53,7 @@ export default {
   },
   data () {
     return {
+      url: this.global.BASE_URL + '/uploads/PersonalPhoto.jpg',
       desc: []
     }
   }
@@ -76,11 +77,11 @@ export default {
 }
 
 .left {
-  width: 25%;
+  width: 25%!important;
 }
 
 .right {
-  width: 75%;
+  width: 75%!important;
 }
 
 .intro {
@@ -118,13 +119,15 @@ h1 {
 }
 
 .img {
-  max-width: 100%;
   width: 100%;
   position: relative;
-  display: block;
   flex: 0 0 auto;
   padding: 0;
   margin: 0;
+}
+
+.img > img {
+  width: 100%
 }
 .content {
   flex-grow: 1;

@@ -6,11 +6,13 @@ import router from './router'
 import iView from 'iview'
 import 'iview/dist/styles/iview.css'
 import axios from 'axios'
+import global from './config/global.js'
 
 axios.defaults.baseURL = 'http://localhost:8500/api'
 Vue.use(iView)
 Vue.config.productionTip = false
 Vue.prototype.$axios = axios
+Vue.prototype.global = global
 
 /* eslint-disable no-new */
 new Vue({
