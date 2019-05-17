@@ -36,6 +36,7 @@
 <script>
 import PersonalMenu from '../common/PersonalMenu'
 import MyFooter from '../common/footer'
+import emptyImgUrl from '../../assets/logo.png'
 export default {
   components: {PersonalMenu, MyFooter},
   name: 'home',
@@ -45,7 +46,12 @@ export default {
       .then(res => {
         console.log(res)
         if (res.data.code === 200) {
-          this.desc = res.data.data
+          this.desc = res.data.data.info
+          if (res.data.data.personal === 'No photo') {
+            this.url = emptyImgUrl
+          } else {
+            this.url = this.global.BASE_URL + res.data.data.personal
+          }
         } else {
           this.$Message.error('内部错误!')
         }
@@ -53,7 +59,7 @@ export default {
   },
   data () {
     return {
-      url: this.global.BASE_URL + '/uploads/PersonalPhoto.jpg',
+      url: this.global.BASE_URL + '/uploads/pp/PersonalPhoto.jpg',
       desc: []
     }
   }

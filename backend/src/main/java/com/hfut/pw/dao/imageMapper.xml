@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hfut.pw.dao.imageMapper" >
+    <resultMap id="BaseResultMap" type="com.hfut.pw.domain.image" >
+        <result column="path" property="path" jdbcType="VARCHAR" />
+        <result column="type" property="type" jdbcType="VARCHAR" />
+    </resultMap>
+    <select id="selectPersonalPhoto" resultType="java.lang.String">
+        select path from image where type = 'personal'
+    </select>
+    
+    <insert id="insertPhoto" parameterType="java.lang.String">
+        insert into image (path, type) values ( #{path}, #{type})
+    </insert>
+
+    <delete id="deletePhoto" parameterType="java.lang.String">
+        delete from image where path = #{path}
+    </delete>
+
+    <delete id="deletePersonalPhoto" parameterType="java.lang.String">
+        delete from image where type = 'personal'
+    </delete>
+</mapper>
