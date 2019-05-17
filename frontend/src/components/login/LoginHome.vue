@@ -9,18 +9,18 @@
         <div class="left">
           <div class="img-card">
             <div class="img">
-              <img src="../../assets/logo.png">
+              <img :src="personalPhotoUrl">
             </div>
             <div class="upload">
               <Upload
-                :action="upload_url"
+                :action="uploadUrl"
                 :format="['jpg', 'jpeg', 'png']"
                 :show-upload-list="false"
                 :before-upload="handleBeforeUpload"
                 :on-format-error="handleFormatError">
                 <Button icon="ios-cloud-upload-outline">选择文件</Button>
               </Upload>
-              <div v-if="file !== null">
+              <div v-if="file !== null && changeSignal === true">
                 选择文件名：{{file.name}}
                 <Button type="text" @click="upload" :loading="loadingStatus"></Button>
               </div>
@@ -53,6 +53,7 @@
 <script>
 import PersonalMenu from '../common/PersonalMenu'
 import MyFooter from '../common/footer'
+import emptyImgUrl from '../../assets/logo.png'
 export default {
   components: {PersonalMenu, MyFooter},
   name: 'home',
@@ -62,7 +63,12 @@ export default {
       .then(res => {
         console.log(res)
         if (res.data.code === 200) {
-          this.desc = res.data.data
+          this.desc = res.data.data.info
+          if (res.data.data.personal === 'No photo') {
+            this.personalPhotoUrl = emptyImgUrl
+          } else {
+            this.personalPhotoUrl = this.global.BASE_URL + res.data.data.personal
+          }
         } else {
           this.$Message.error('内部错误!')
         }
@@ -71,6 +77,7 @@ export default {
   data () {
     return {
       personalPhotoUrl: '',
+      changeSignal: false,
       desc: [],
       file: null,
       loadingStatus: false,
@@ -79,18 +86,22 @@ export default {
   },
   methods: {
     handleBeforeUpload (file) {
+      this.changeSignal = true
       this.file = file
       return false
     },
     upload () {
       let formData = new FormData()
-      formData.append(this.file)
-      this.$axios.post('/upload/personalPhoto', formData,
+      formData.append('img', this.file)
+      formData.append('imgName', this.file.name)
+      this.$axios.post('/upload/pp', formData,
         {headers: {'Content-Type': 'multipart/form-data'}}
       )
         .then(res => {
           if (res.data.code === 200) {
             this.$Message.success('上传成功')
+            this.changeSignal = false
+            this.personalPhotoUrl = this.global.BASE_URL + res.data.data
           } else {
             this.$Message.error('上传失败！')
           }
@@ -181,6 +192,11 @@ h1 {
   padding: 0;
   margin: 0;
 }
+
+.img > img {
+  width: 100%
+}
+
 .content {
   flex-grow: 1;
   border: none;
