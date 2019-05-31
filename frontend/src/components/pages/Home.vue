@@ -9,19 +9,20 @@
               <img :src="url">
             </div>
             <div class="content">
-              <a>Su Yunpeng</a>
-              <div class="words">A Hefei University of Technology student.</div>
+              <a>粟云鹏</a>
+              <div class="words">合肥工业大学学生</div>
             </div>
           </div>
         </div>
         <div class="right">
           <div class="intro">
-            <h1>About me</h1>
+            <h1>个人简介</h1>
+            <Button type="primary" @click="handleUpdate">编辑</Button>
             <p v-for='item in desc' :key="item">{{item.intro}}</p>
           </div>
         </div>
         <div class="favorites">
-          <h1>Favorites</h1>
+          <h1>最爱</h1>
           <img src="../../assets/django.png">
           <img src="../../assets/spring.jpeg">
           <img src="../../assets/vue.png">
@@ -59,8 +60,16 @@ export default {
   },
   data () {
     return {
-      url: this.global.BASE_URL + '/uploads/pp/PersonalPhoto.jpg',
+      url: '',
       desc: []
+    }
+  },
+  methods: {
+    handleUpdate () {
+      for (let i = 0; i < this.desc.length; i++) {
+        this.desc[i]['isEdit'] = false
+      }
+      this.$router.push({path: '/IntroEdit', query: {desc: this.desc}})
     }
   }
 }
