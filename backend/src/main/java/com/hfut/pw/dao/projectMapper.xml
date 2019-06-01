@@ -11,4 +11,5 @@
     <select id="getProjects" resultMap="BaseResultMap">
         select * from project
     </select>
+
 </mapper>

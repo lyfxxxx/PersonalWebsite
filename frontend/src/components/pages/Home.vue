@@ -16,8 +16,9 @@
         </div>
         <div class="right">
           <div class="intro">
-            <h1>个人简介</h1>
-            <Button type="primary" @click="handleUpdate">编辑</Button>
+            <div class="line">
+              <h1>个人简介</h1>
+            </div>
             <p v-for='item in desc' :key="item">{{item.intro}}</p>
           </div>
         </div>
@@ -63,14 +64,6 @@ export default {
       url: '',
       desc: []
     }
-  },
-  methods: {
-    handleUpdate () {
-      for (let i = 0; i < this.desc.length; i++) {
-        this.desc[i]['isEdit'] = false
-      }
-      this.$router.push({path: '/IntroEdit', query: {desc: this.desc}})
-    }
   }
 }
 </script>
@@ -115,6 +108,16 @@ export default {
   margin: 10px;
   font-size: 14px;
   color: #657180;
+}
+
+.line > h1 {
+  display: inline;
+  margin: 0px;
+}
+
+.line {
+  margin: 10px;
+  padding: 0px;
 }
 
 h1 {
@@ -177,5 +180,9 @@ h1 {
 .favorites > img {
   margin: 20px;
   height: 100px;
+}
+
+.edit-button {
+  float: right;
 }
 </style>

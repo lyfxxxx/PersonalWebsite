@@ -26,14 +26,17 @@
               </div>
             </div>
             <div class="content">
-              <p>Su Yunpeng</p>
-              <div class="words">A Hefei Universi ty of Technology student.</div>
+              <p>粟云鹏</p>
+              <div class="words">合肥工业大学学生</div>
             </div>
           </div>
         </div>
         <div class="right">
           <div class="intro">
-            <h1>About me</h1>
+            <div class="line">
+              <h1>个人简介</h1>
+              <Button type="primary" @click="handleUpdate" class="edit-button">编辑</Button>
+            </div>
             <p v-for='item in desc' :key="item">{{item.intro}}</p>
           </div>
         </div>
@@ -85,6 +88,9 @@ export default {
     }
   },
   methods: {
+    handleUpdate () {
+      this.$router.push({path: '/introedit'})
+    },
     handleBeforeUpload (file) {
       this.changeSignal = true
       this.file = file
@@ -167,6 +173,16 @@ export default {
   color: #657180;
 }
 
+.line > h1 {
+  display: inline;
+  margin: 0px;
+}
+
+.line {
+  margin: 10px;
+  padding: 0px;
+}
+
 h1 {
   margin: 10px;
 }
@@ -230,5 +246,9 @@ h1 {
 .favorites > img {
   margin: 20px;
   height: 100px;
+}
+
+.edit-button {
+  float: right;
 }
 </style>

@@ -6,7 +6,10 @@ import com.hfut.pw.domain.personalInfo;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service("indexService")
 public class indexService {
@@ -18,6 +21,8 @@ public class indexService {
     public List<personalInfo> getPersonalInfo() {
         List<personalInfo> list = null;
         list = pim.getPersonInfo();
+        if(list == null)
+            list = new ArrayList<>();
         return list;
     }
 
@@ -36,5 +41,15 @@ public class indexService {
             im.deletePersonalPhoto();
         }
         im.insertPhoto(path, "personal");
+    }
+
+    public void insertNewIntro(String newInfo) {
+        pim.insertNewInfo(newInfo);
+    }
+    public void updateIntro(String newInfo, Integer id) {
+        Map<String, Object> map = new HashMap<>();
+        map.put("newInfo", newInfo);
+        map.put("id", id);
+        pim.updateNewInfo(map);
     }
 }

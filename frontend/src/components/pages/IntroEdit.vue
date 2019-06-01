@@ -1,22 +1,30 @@
 <template>
   <div class="hello">
-    <PersonalMenu active="Education"></PersonalMenu>
+    <PersonalMenu></PersonalMenu>
     <div class="main-container">
       <div class="intro-edit-card">
         <h1>修改个人简介</h1>
         <div class="intro">
-          <div class="line" v-for='item in desc' :key="item" >
+          <div class="line" v-for='(item, index) in desc' :key="index" >
             <div class="no-edit" v-if="item.isEdit === false">
               <p>{{item.intro}}</p>
-              <Button type="info" @click="handleChange(item)">修改</Button>
-              <Button type="error" @click="handleDelete(item)">删除</Button>
+              <div class="button">
+                <Button type="info" @click="handleChange(item)" size="small">修改</Button>
+                <Button type="error" @click="handleDelete(item)" size="small">删除</Button>
+              </div>
             </div>
             <div class="edit" v-else>
-              <Input v-model="item.intro" maxlength="200" type="textarea" />
-              <Button type="info" @click="handleUpdate(item)">保存</Button>
-              <Button type="error" @click="handleDelete(item)">删除</Button>
+              <Input v-model="item.intro" :maxlength="200" type="textarea" @on-blur="handleBlur(item)"/>
+              <div class="button">
+                <Button type="info" @click="handleUpdate(item)" size="small">保存</Button>
+                <Button type="warning" @click="handleCancel(item, index)" size="small">取消</Button>
+                <Button type="error" @click="handleDelete(item)" size="small">删除</Button>
+              </div>
             </div>
           </div>
+        </div>
+        <div class="add">
+          <Button type="primary" icon="md-add" @click="handleAdd" size="large">添加段落</Button>
         </div>
       </div>
       <MyFooter></MyFooter>
@@ -30,14 +38,103 @@ import MyFooter from '../common/footer'
 export default {
   components: {PersonalMenu, MyFooter},
   name: 'introeditor',
+  mounted () {
+    this.$axios
+      .get('/getEditInfo', {})
+      .then(res => {
+        if (res.data.code === 200) {
+          this.desc = res.data.data
+          for (let i = 0; i < this.desc.length; i++) {
+            this.backupDesc.push(this.desc[i].intro)
+            this.desc[i]['isEdit'] = false
+            this.desc[i]['isAdd'] = false
+            this.desc[i]['isPass'] = false
+          }
+        } else {
+          this.$Message.error('内部错误!')
+        }
+      })
+  },
   data () {
     return {
-      desc: this.$route.query.desc
+      desc: [],
+      backupDesc: []
     }
   },
   methods: {
     handleChange (item) {
       item.isEdit = true
+      this.desc.push({})
+      this.desc.pop()
+    },
+    handleCancel (item, index) {
+      if (item.isAdd) {
+        this.desc.splice(index, 1)
+      } else {
+        item.isEdit = false
+        item.intro = this.backupDesc[index]
+        this.desc.push({})
+        this.desc.pop()
+      }
+    },
+    handleBlur (item) {
+      if (item.intro.length > 0 && item.intro.length < 200 && !item.intro.match(/^[ ]*$/)) {
+        item.isPass = true
+      }
+    },
+    handleUpdate (item) {
+      if (item.isPass) {
+        if (item.isAdd === false) {
+          this.$axios({
+            url: '/updateInfo',
+            method: 'post',
+            data: item
+          }).then(res => {
+            if (res.data.code === 200) {
+              this.$Message.success('修改成功')
+              item.isEdit = false
+              item.isPass = false
+              this.desc.push({})
+              this.desc.pop()
+            } else {
+              this.$Message.error('修改失败！')
+            }
+          }).catch(() => {
+            this.$Message.error('内部错误！')
+          })
+        } else {
+          let formData = new FormData()
+          formData.append('newInfo', item.intro)
+          this.$axios.post('/insertNewInfo', formData,
+            {headers: {'Content-Type': 'multipart/form-data'}}
+          )
+            .then(res => {
+              if (res.data.code === 200) {
+                this.$Message.success('添加成功')
+                this.backupDesc.push(item.intro)
+                item.isEdit = false
+                item.isPass = false
+                item.isAdd = false
+                this.desc.push({})
+                this.desc.pop()
+              } else {
+                this.$Message.error('添加失败！')
+              }
+            })
+            .catch(() => {
+              this.$Message.error('服务器错误！')
+            })
+        }
+      } else {
+        this.$Message.warning('请检查输入框！内容不能为空且最多200字')
+      }
+    },
+    handleAdd () {
+      this.desc.push({
+        isEdit: true,
+        isAdd: true,
+        intro: ''
+      })
     }
   }
 }
@@ -73,7 +170,7 @@ export default {
   line-height: 35px;
   background: #fff;
   box-shadow: 0 1px 2px 0;
-  margin: 20px 0px 20px 20px;
+  margin: 20px;
   border: 1px solid rgba(34,36,38,.15);
   border-radius: 5px;
   position: relative;
@@ -99,7 +196,24 @@ export default {
   color: #657180;
 }
 
-#time {
-  text-align: right;
+.no-edit {
+  margin: 20px;
+  border: none;
+  border-top: 1px solid;
+}
+
+.edit {
+  margin: 20px;
+  border: none;
+  border-top: 1px solid;
+}
+
+.button {
+  text-align: center;
+}
+
+.add {
+  margin: 20px;
+  text-align: center;
 }
 </style>
