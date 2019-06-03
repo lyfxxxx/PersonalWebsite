@@ -11,6 +11,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
 import java.io.*;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -31,6 +32,41 @@ public class indexController {
         dataMap.put("info", list);
         dataMap.put("personal", path);
         return resultFactory.buildSuccessRes(dataMap);
+    }
+
+    @CrossOrigin
+    @RequestMapping(value = "/getEditInfo", method = RequestMethod.GET)
+    @ResponseBody
+    public Object getInfo() {
+        List<personalInfo> list = is.getPersonalInfo();
+        return resultFactory.buildSuccessRes(list);
+    }
+
+    @CrossOrigin
+    @RequestMapping(value = "/insertNewInfo", method = RequestMethod.POST)
+    @ResponseBody
+    public Object insertNewIntro(@RequestParam(value = "newInfo") String newInfo) {
+        is.insertNewIntro(newInfo);
+        return resultFactory.buildSuccessRes(null);
+    }
+
+    @CrossOrigin
+    @RequestMapping(value = "/updateInfo", method = RequestMethod.POST)
+    @ResponseBody
+    public Object updateIntro(@RequestBody personalInfo pi) {
+        is.updateIntro(pi.getIntro(), pi.getId());
+        return resultFactory.buildSuccessRes(null);
+    }
+
+    @CrossOrigin
+    @RequestMapping(value = "/deleteInfo", method = RequestMethod.POST)
+    @ResponseBody
+    public Object deleteIntro(@RequestBody personalInfo pi) {
+        if(is.deleteIntro(pi.getId())) {
+            return resultFactory.buildSuccessRes(null);
+        } else {
+            return resultFactory.buildFailedRes("该项不存在！");
+        }
     }
 
     @CrossOrigin

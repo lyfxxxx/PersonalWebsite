@@ -5,6 +5,10 @@ import Education from '@/components/pages/Education'
 import Projects from '@/components/pages/Projects'
 import Login from '@/components/login/Login'
 import LoginHome from '@/components/login/LoginHome'
+import IntroEdit from '@/components/pages/IntroEdit'
+import LoginMenu from '@/components/login/LoginMenu'
+import LoginEdu from '@/components/login/LoginEdu'
+import LoginProjects from '@/components/login/LoginProjects'
 
 Vue.use(Router)
 
@@ -39,6 +43,26 @@ export default new Router({
       path: '/loginhome',
       name: 'loginhome',
       component: LoginHome
+    },
+    {
+      path: '/introedit',
+      name: 'introedit',
+      component: IntroEdit
+    },
+    {
+      path: '/loginmenu',
+      name: 'loginmenu',
+      component: LoginMenu
+    },
+    {
+      path: '/loginedu',
+      name: 'loginedu',
+      component: LoginEdu
+    },
+    {
+      path: '/loginprojects',
+      name: 'loginprojects',
+      component: LoginProjects
     }
   ]
 })

@@ -9,19 +9,21 @@
               <img :src="url">
             </div>
             <div class="content">
-              <a>Su Yunpeng</a>
-              <div class="words">A Hefei University of Technology student.</div>
+              <a>粟云鹏</a>
+              <div class="words">合肥工业大学学生</div>
             </div>
           </div>
         </div>
         <div class="right">
           <div class="intro">
-            <h1>About me</h1>
+            <div class="line">
+              <h1>个人简介</h1>
+            </div>
             <p v-for='item in desc' :key="item">{{item.intro}}</p>
           </div>
         </div>
         <div class="favorites">
-          <h1>Favorites</h1>
+          <h1>最爱</h1>
           <img src="../../assets/django.png">
           <img src="../../assets/spring.jpeg">
           <img src="../../assets/vue.png">
@@ -59,7 +61,7 @@ export default {
   },
   data () {
     return {
-      url: this.global.BASE_URL + '/uploads/pp/PersonalPhoto.jpg',
+      url: '',
       desc: []
     }
   }
@@ -106,6 +108,16 @@ export default {
   margin: 10px;
   font-size: 14px;
   color: #657180;
+}
+
+.line > h1 {
+  display: inline;
+  margin: 0px;
+}
+
+.line {
+  margin: 10px;
+  padding: 0px;
 }
 
 h1 {
@@ -168,5 +180,9 @@ h1 {
 .favorites > img {
   margin: 20px;
   height: 100px;
+}
+
+.edit-button {
+  float: right;
 }
 </style>
