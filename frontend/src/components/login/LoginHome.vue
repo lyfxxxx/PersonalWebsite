@@ -1,6 +1,6 @@
 <template>
   <div class="hello">
-    <PersonalMenu active="Home"></PersonalMenu>
+    <LoginMenu active="Home"></LoginMenu>
     <div class="container">
       <div class="main-container">
         <div class="welcome-part">
@@ -54,12 +54,12 @@
 </template>
 
 <script>
-import PersonalMenu from '../common/PersonalMenu'
+import LoginMenu from './LoginMenu'
 import MyFooter from '../common/footer'
 import emptyImgUrl from '../../assets/logo.png'
 export default {
-  components: {PersonalMenu, MyFooter},
-  name: 'home',
+  components: {LoginMenu, MyFooter},
+  name: 'loginhome',
   mounted () {
     this.$axios
       .get('/index', {})

@@ -7,6 +7,8 @@ import java.util.Map;
 
 public interface personalInfoMapper {
     public List<personalInfo> getPersonInfo();
+    public personalInfo getPersonInfoById(Integer id);
     public void insertNewInfo(String newInfo);
     public void updateNewInfo(Map<String, Object> map);
+    public void deleteInfo(Integer id);
 }

@@ -1,6 +1,6 @@
 <template>
   <div class="hello">
-    <PersonalMenu></PersonalMenu>
+    <LoginMenu></LoginMenu>
     <div class="main-container">
       <div class="intro-edit-card">
         <h1>修改个人简介</h1>
@@ -10,7 +10,7 @@
               <p>{{item.intro}}</p>
               <div class="button">
                 <Button type="info" @click="handleChange(item)" size="small">修改</Button>
-                <Button type="error" @click="handleDelete(item)" size="small">删除</Button>
+                <Button type="error" @click="handleDelete(item, index)" size="small">删除</Button>
               </div>
             </div>
             <div class="edit" v-else>
@@ -18,7 +18,6 @@
               <div class="button">
                 <Button type="info" @click="handleUpdate(item)" size="small">保存</Button>
                 <Button type="warning" @click="handleCancel(item, index)" size="small">取消</Button>
-                <Button type="error" @click="handleDelete(item)" size="small">删除</Button>
               </div>
             </div>
           </div>
@@ -33,10 +32,10 @@
 </template>
 
 <script>
-import PersonalMenu from '../common/PersonalMenu'
+import LoginMenu from '../login/LoginMenu'
 import MyFooter from '../common/footer'
 export default {
-  components: {PersonalMenu, MyFooter},
+  components: {LoginMenu, MyFooter},
   name: 'introeditor',
   mounted () {
     this.$axios
@@ -81,6 +80,22 @@ export default {
       if (item.intro.length > 0 && item.intro.length < 200 && !item.intro.match(/^[ ]*$/)) {
         item.isPass = true
       }
+    },
+    handleDelete (item, index) {
+      this.$axios({
+        url: '/deleteInfo',
+        method: 'post',
+        data: item
+      }).then(res => {
+        if (res.data.code === 200) {
+          this.$Message.success('删除成功')
+          this.desc.splice(index, 1)
+        } else {
+          this.$Message.error('删除失败！')
+        }
+      }).catch(() => {
+        this.$Message.error('内部错误！')
+      })
     },
     handleUpdate (item) {
       if (item.isPass) {

@@ -35,12 +35,26 @@ public class indexService {
         }
     }
 
+    public personalInfo getPersonalInfoById(Integer id) {
+        return pim.getPersonInfoById(id);
+    }
+
     public void changePersonalPhoto(String path) {
         String oldPath = im.selectPersonalPhoto();
         if(oldPath != null) {
             im.deletePersonalPhoto();
         }
         im.insertPhoto(path, "personal");
+    }
+
+    public boolean deleteIntro(Integer id) {
+        personalInfo info = pim.getPersonInfoById(id);
+        if(info != null) {
+            pim.deleteInfo(id);
+            return true;
+        } else {
+            return false;
+        }
     }
 
     public void insertNewIntro(String newInfo) {

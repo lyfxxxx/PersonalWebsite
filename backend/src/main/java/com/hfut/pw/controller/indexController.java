@@ -59,6 +59,17 @@ public class indexController {
     }
 
     @CrossOrigin
+    @RequestMapping(value = "/deleteInfo", method = RequestMethod.POST)
+    @ResponseBody
+    public Object deleteIntro(@RequestBody personalInfo pi) {
+        if(is.deleteIntro(pi.getId())) {
+            return resultFactory.buildSuccessRes(null);
+        } else {
+            return resultFactory.buildFailedRes("该项不存在！");
+        }
+    }
+
+    @CrossOrigin
     @PostMapping(value = "/upload/pp")
     @ResponseBody
     public Object uploadPersonalPhoto(@RequestParam(value = "img", required = true) MultipartFile file,

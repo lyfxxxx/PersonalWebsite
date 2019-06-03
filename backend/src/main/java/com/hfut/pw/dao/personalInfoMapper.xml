@@ -9,6 +9,10 @@
         select * from personalinfo
     </select>
 
+    <select id="getPersonInfoById" resultMap="InfoResultMap">
+        select * from personalinfo where id = #{id}
+    </select>
+
     <insert id="insertNewInfo" parameterType="java.lang.String">
         insert into personalinfo (intro) value (#{newInfo})
     </insert>
@@ -16,4 +20,8 @@
     <update id="updateNewInfo" parameterType="java.util.Map">
         update personalinfo set intro = #{newInfo} where id = #{id}
     </update>
+
+    <delete id="deleteInfo" parameterType="java.lang.Integer">
+        delete from personalinfo where id = #{id}
+    </delete>
 </mapper>
