@@ -8,7 +8,7 @@
           <Input type="text" v-model="loginForm.name" placeholder="输入用户名" />
         </FormItem>
         <FormItem prop="password">
-          <Input type="text" v-model="loginForm.password" placeholder="输入密码" />
+          <Input type="password" v-model="loginForm.password" placeholder="输入密码" />
         </FormItem>
         <FormItem>
           <Button type="primary" @click="handleSubmit('loginForm')" >登录</Button>

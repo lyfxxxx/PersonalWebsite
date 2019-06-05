@@ -4,10 +4,7 @@ import com.hfut.pw.domain.education;
 import com.hfut.pw.service.educationsService;
 import com.hfut.pw.util.resultFactory;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -24,5 +21,39 @@ public class educationsController {
     public Object getEducations() {
         List<education> list = es.getEducations();
         return resultFactory.buildSuccessRes(list);
+    }
+
+    @CrossOrigin
+    @RequestMapping(value = "/education", method = RequestMethod.POST)
+    @ResponseBody
+    public Object getEducation(@RequestParam(value = "id") Integer id) {
+        education edu = es.getEducationById(id);
+        if(edu != null) {
+            return resultFactory.buildSuccessRes(edu);
+        } else {
+            return resultFactory.buildFailedRes("查询不到该项数据！");
+        }
+    }
+
+    @CrossOrigin
+    @RequestMapping(value = "/updateEdu", method = RequestMethod.POST)
+    @ResponseBody
+    public Object updateEdu(@RequestBody education edu) {
+        if(es.updateEducation(edu)) {
+            return resultFactory.buildSuccessRes(null);
+        } else {
+            return resultFactory.buildFailedRes("传输数据失败或查询不到该项数据！");
+        }
+    }
+
+    @CrossOrigin
+    @RequestMapping(value = "/deleteEdu", method = RequestMethod.POST)
+    @ResponseBody
+    public Object updateEdu(@RequestParam(value = "id") Integer id) {
+        if(es.deleteEducation(id)) {
+            return resultFactory.buildSuccessRes(null);
+        } else {
+            return resultFactory.buildFailedRes("传输数据失败或查询不到该项数据！");
+        }
     }
 }
