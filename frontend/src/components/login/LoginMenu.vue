@@ -18,7 +18,7 @@
       </MenuItem>
       <div class="rightItem">
         <MenuItem name="1">
-          个人中心
+          登出
         </MenuItem>
         <MenuItem name="2">
           <Icon type="logo-github" size="24"/>
@@ -43,6 +43,7 @@ export default {
     navigateTo (name) {
       switch (name) {
         case '1':
+          this.$router.push('/home')
           break
         case '2':
           window.open('https://github.com/lyfxxxx')

@@ -8,10 +8,15 @@
           <h2>
             {{item.prjname}}
             <span id="time">{{item.time}}</span>
+            <Button type="error" @click="handleDelete(item)" class="edit-button">删除</Button>
+            <Button type="primary" @click="handleUpdate(item)" class="edit-button">编辑</Button>
           </h2>
           <p>项目职位：{{item.pos}}</p>
           <p id="desc">项目简介: {{item.intro}}</p>
           <p>项目职责：{{item.duty}}</p>
+        </div>
+        <div class="add">
+          <Button type="primary" icon="md-add" @click="handleInsert" size="large">添加项目经历</Button>
         </div>
       </div>
       <MyFooter></MyFooter>
@@ -40,6 +45,33 @@ export default {
   data () {
     return {
       projects: []
+    }
+  },
+  methods: {
+    handleUpdate (item) {
+      this.$router.push({path: '/projedit', query: {id: item.id}})
+    },
+    handleDelete (item) {
+      let formData = new FormData()
+      formData.append('id', item.id)
+      this.$axios.post('/deleteProj', formData,
+        {headers: {'Content-Type': 'multipart/form-data'}}
+      )
+        .then(res => {
+          if (res.data.code === 200) {
+            this.educations = res.data.data
+            this.$Message.success('删除成功')
+          } else {
+            console.log(res.data.message)
+            this.$Message.error('删除失败！')
+          }
+        })
+        .catch(() => {
+          this.$Message.error('内部错误！')
+        })
+    },
+    handleInsert () {
+      this.$router.push('/newproj')
     }
   }
 }
@@ -76,6 +108,7 @@ export default {
   border: none;
   border-top: 1px solid;
 }
+
 .project > h2 {
   text-align: left;
   margin: 10px;
@@ -95,8 +128,18 @@ export default {
   font-size: 14px;
 }
 
+.edit-button {
+  margin: 10px;
+  float: right;
+}
+
 #time {
   text-align: right;
+}
+
+.add {
+  margin: 20px;
+  text-align: center;
 }
 
 </style>

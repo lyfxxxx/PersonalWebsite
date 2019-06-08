@@ -10,4 +10,5 @@ public interface educationMapper {
     public education getEducationById(Integer id);
     public void updateEduById(Map<String, Object> map);
     public void deleteEduById(Integer id);
+    public void insertEdu(Map<String, Object> map);
 }

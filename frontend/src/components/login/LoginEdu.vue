@@ -15,7 +15,7 @@
           <p>学校名称: {{item.school}}</p>
         </div>
         <div class="add">
-          <Button type="primary" icon="md-add" @click="handleAdd" size="large">添加教育经历</Button>
+          <Button type="primary" icon="md-add" @click="handleInsert" size="large">添加教育经历</Button>
         </div>
       </div>
       <MyFooter></MyFooter>
@@ -58,6 +58,7 @@ export default {
       )
         .then(res => {
           if (res.data.code === 200) {
+            this.educations = res.data.data
             this.$Message.success('删除成功')
           } else {
             console.log(res.data.message)
@@ -67,6 +68,9 @@ export default {
         .catch(() => {
           this.$Message.error('内部错误！')
         })
+    },
+    handleInsert () {
+      this.$router.push('/newedu')
     }
   }
 }
@@ -103,6 +107,7 @@ export default {
   border: none;
   border-top: 1px solid;
 }
+
 .education > h2 {
   text-align: left;
   margin: 10px;

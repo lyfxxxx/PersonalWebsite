@@ -2,6 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.hfut.pw.dao.projectMapper" >
     <resultMap id="BaseResultMap" type="com.hfut.pw.domain.project" >
+        <result column="id" property="id" jdbcType="INTEGER" />
         <result column="prjname" property="prjname" jdbcType="VARCHAR" />
         <result column="pos" property="pos" jdbcType="VARCHAR" />
         <result column="time" property="time" jdbcType="VARCHAR" />
@@ -11,5 +12,16 @@
     <select id="getProjects" resultMap="BaseResultMap">
         select * from project
     </select>
-
+    <select id="getProjById" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select * from project where id = #{id}
+    </select>
+    <update id="updateProjById" parameterType="java.util.Map">
+        update project set prjname = #{prjname}, pos = #{pos}, time = #{time}, duty = #{duty}, intro = #{intro} where id = #{id}
+    </update>
+    <delete id="deleteProjById" parameterType="java.lang.Integer">
+        delete from project where id = #{id}
+    </delete>
+    <insert id="insertProj" parameterType="java.util.Map">
+        insert into project (prjname, pos, intro, duty, time) values (#{prjname}, #{pos}, #{intro}, #{duty}, #{time})
+    </insert>
 </mapper>

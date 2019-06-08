@@ -47,16 +47,24 @@ public class educationsService {
         }
     }
 
-    public boolean deleteEducation(Integer id) {
-        if(id == null) {
+    public List<education> deleteEducation(Integer id) {
+        List<education> list = null;
+        em.deleteEduById(id);
+        list = em.getEducations();
+        return list;
+    }
+
+    public boolean insertEdu(education edu) {
+        Map<String, Object> map = new HashMap<>();
+        if(edu == null)
             return false;
-        }
-        education edu = this.getEducationById(id);
-        if(edu != null) {
-            em.deleteEduById(id);
+        else {
+            map.put("school", edu.getSchool());
+            map.put("stage", edu.getStage());
+            map.put("time", edu.getTime());
+            map.put("major", edu.getMajor());
+            em.insertEdu(map);
             return true;
-        } else {
-            return false;
         }
     }
 }

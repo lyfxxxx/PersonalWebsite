@@ -49,11 +49,23 @@ public class educationsController {
     @CrossOrigin
     @RequestMapping(value = "/deleteEdu", method = RequestMethod.POST)
     @ResponseBody
-    public Object updateEdu(@RequestParam(value = "id") Integer id) {
-        if(es.deleteEducation(id)) {
-            return resultFactory.buildSuccessRes(null);
+    public Object deleteEdu(@RequestParam(value = "id") Integer id) {
+        List<education> list = es.deleteEducation(id);
+        if(list != null) {
+            return resultFactory.buildSuccessRes(list);
         } else {
             return resultFactory.buildFailedRes("传输数据失败或查询不到该项数据！");
+        }
+    }
+
+    @CrossOrigin
+    @RequestMapping(value = "/insertEdu", method = RequestMethod.POST)
+    @ResponseBody
+    public Object insertEdu(@RequestBody education edu) {
+        if(es.insertEdu(edu)) {
+            return resultFactory.buildSuccessRes(null);
+        } else {
+            return resultFactory.buildFailedRes("传输数据失败");
         }
     }
 }

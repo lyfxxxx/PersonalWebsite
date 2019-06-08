@@ -20,4 +20,7 @@
     <delete id="deleteEduById" parameterType="java.lang.Integer">
         delete from eduction where id = #{id}
     </delete>
+    <insert id="insertEdu" parameterType="java.util.Map">
+        insert into eduction (stage, major, school, time) values (#{stage}, #{major}, #{school}, #{time})
+    </insert>
 </mapper>
