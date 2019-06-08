@@ -8,9 +8,14 @@
           <h2>
             {{item.stage}}
             <span id="time">{{item.time}}</span>
+            <Button type="error" @click="handleDelete(item)" class="edit-button">删除</Button>
+            <Button type="primary" @click="handleUpdate(item)" class="edit-button">编辑</Button>
           </h2>
           <p>专业：{{item.major}}</p>
           <p>学校名称: {{item.school}}</p>
+        </div>
+        <div class="add">
+          <Button type="primary" icon="md-add" @click="handleInsert" size="large">添加教育经历</Button>
         </div>
       </div>
       <MyFooter></MyFooter>
@@ -39,6 +44,33 @@ export default {
   data () {
     return {
       educations: []
+    }
+  },
+  methods: {
+    handleUpdate (item) {
+      this.$router.push({path: '/eduedit', query: {id: item.id}})
+    },
+    handleDelete (item) {
+      let formData = new FormData()
+      formData.append('id', item.id)
+      this.$axios.post('/deleteEdu', formData,
+        {headers: {'Content-Type': 'multipart/form-data'}}
+      )
+        .then(res => {
+          if (res.data.code === 200) {
+            this.educations = res.data.data
+            this.$Message.success('删除成功')
+          } else {
+            console.log(res.data.message)
+            this.$Message.error('删除失败！')
+          }
+        })
+        .catch(() => {
+          this.$Message.error('内部错误！')
+        })
+    },
+    handleInsert () {
+      this.$router.push('/newedu')
     }
   }
 }
@@ -75,6 +107,7 @@ export default {
   border: none;
   border-top: 1px solid;
 }
+
 .education > h2 {
   text-align: left;
   margin: 10px;
@@ -94,8 +127,14 @@ export default {
   color: #657180;
 }
 
-#time {
-  text-align: right;
+.edit-button {
+  margin: 10px;
+  float: right;
+}
+
+.add {
+  margin: 20px;
+  text-align: center;
 }
 
 </style>

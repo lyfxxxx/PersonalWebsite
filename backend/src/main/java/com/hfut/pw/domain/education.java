@@ -1,6 +1,7 @@
 package com.hfut.pw.domain;
 
 public class education {
+    private Integer id;
     private String stage;
     private String major;
     private String school;
@@ -36,5 +37,13 @@ public class education {
 
     public void setTime(String time) {
         this.time = time;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 }
